@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 });
 
 // get one product
-router.get("/:id", await (req, res) => {
+router.get("/:id", async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
@@ -36,12 +36,12 @@ router.get("/:id", await (req, res) => {
         },
         {
           model: Tag,
-        }
-      ]
+        },
+      ],
     });
     if (!productData) {
       res.status(404).json({
-        message: 'No product found with this id!'
+        message: "No product found with this id!",
       });
     }
     res.status(200).json(productData);
@@ -129,13 +129,13 @@ router.delete("/:id", async (req, res) => {
   try {
     const deletedProduct = await Product.destroy({
       where: {
-        id: req.params.id
-      }
+        id: req.params.id,
+      },
     });
     if (!deletedProduct) {
       res.status(404).json({
-        message: 'No product found with this id!'
-      })
+        message: "No product found with this id!",
+      });
     }
     res.status(200).json(deletedProduct);
   } catch (err) {
